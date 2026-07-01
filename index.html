@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday, My Love</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        overflow: hidden;
+        font-family: Georgia, "Times New Roman", serif;
+        background:
+          radial-gradient(circle at top, #ff9dc0, transparent 25%),
+          radial-gradient(circle at bottom, #ffa7b5, transparent 20%),
+          linear-gradient(180deg, #fff4f7 0%, #ffe7ef 40%, #ffc7d8 100%);
+        position: relative;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body::before {
+        background:
+          radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.7), transparent 4%),
+          radial-gradient(circle at 75% 20%, rgba(255, 255, 255, 0.5), transparent 3%),
+          radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.35), transparent 2.5%);
+        filter: blur(1px);
+      }
+
+      body::after {
+        background:
+          radial-gradient(circle at 12% 70%, rgba(255, 255, 255, 0.45), transparent 2%),
+          radial-gradient(circle at 88% 45%, rgba(255, 255, 255, 0.35), transparent 2.2%),
+          radial-gradient(circle at 50% 88%, rgba(255, 255, 255, 0.55), transparent 1.7%);
+      }
+
+      .scene {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        gap: 2rem;
+      }
+
+      .card {
+        width: min(520px, 92vw);
+        padding: 3.2rem 2.4rem;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08));
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 32px;
+        box-shadow:
+          0 25px 70px rgba(212, 88, 126, 0.18),
+          inset 0 1px 0 rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(16px);
+        text-align: center;
+        position: relative;
+      }
+
+      .extra-section {
+        width: min(520px, 92vw);
+        padding: 2.4rem;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 28px;
+        box-shadow:
+          0 16px 45px rgba(212, 88, 126, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(14px);
+        animation: fadeUp 1.2s ease forwards;
+        opacity: 0;
+      }
+
+      .extra-section h2 {
+        margin: 0;
+        font-size: 2.1rem;
+        color: #8c2f58;
+      }
+
+      .extra-section .mini-message {
+        margin: 1rem 0 0;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #8a5a72;
+      }
+
+      .extra-section .mini-message strong {
+        color: #b24b76;
+      }
+
+      .card::before,
+      .card::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 124, 163, 0.65), transparent 70%);
+        filter: blur(8px);
+        z-index: -1;
+      }
+
+      .card::before {
+        width: 160px;
+        height: 160px;
+        top: -70px;
+        left: -50px;
+      }
+
+      .card::after {
+        width: 110px;
+        height: 110px;
+        right: -35px;
+        bottom: -40px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1rem;
+        margin-bottom: 1.6rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 228, 235, 0.3));
+        color: #c84d7d;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      .badge span {
+        font-size: 1rem;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(3rem, 9vw, 4.6rem);
+        line-height: 1.05;
+        letter-spacing: 0.02em;
+        color: #8c2f58;
+      }
+
+      .name {
+        display: inline-block;
+        background: linear-gradient(135deg, #ff6fa7, #d8507d);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 700;
+      }
+
+      .subtitle {
+        margin: 1.4rem auto 1.9rem;
+        font-size: 1.1rem;
+        color: #9d5770;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .message {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #7d4a61;
+        margin: 0;
+      }
+
+      .message strong {
+        color: #b24b76;
+      }
+
+      .heart-line {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        margin: 1.7rem 0 1.6rem;
+        font-size: 1.45rem;
+      }
+
+      .heart-line span {
+        color: #ff7ea7;
+        filter: drop-shadow(0 2px 3px rgba(255, 126, 167, 0.35));
+        animation: pulseHeart 2s ease-in-out infinite;
+      }
+
+      .heart-line span:nth-child(2) {
+        animation-delay: 0.4s;
+      }
+
+      .heart-line span:nth-child(3) {
+        animation-delay: 0.8s;
+      }
+
+      .footer-note {
+        margin-top: 1.7rem;
+        font-size: 0.92rem;
+        color: #a35e78;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .heart {
+        position: fixed;
+        bottom: -120px;
+        font-size: 2rem;
+        color: #ff80b3;
+        pointer-events: none;
+        z-index: 0;
+        user-select: none;
+        animation: drift linear forwards;
+        opacity: 0.6;
+      }
+
+      @keyframes drift {
+        0% {
+          transform: translate3d(0, 0, 0) scale(0.4) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.6;
+        }
+        100% {
+          transform: translate3d(0, -120vh, 0) scale(1.15) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeUp {
+        from {
+          transform: translateY(28px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes pulseHeart {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      }
+
+      @media (max-width: 560px) {
+        .card {
+          padding: 2.4rem 1.2rem;
+          border-radius: 24px;
+        }
+
+        .subtitle {
+          font-size: 0.88rem;
+          margin: 1rem auto 1.4rem;
+        }
+
+        .message {
+          font-size: 0.98rem;
+        }
+
+        .heart {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="scene">
+      <section class="card" aria-label="Birthday message">
+        <div class="badge"><span>💗</span> Happy Birthday</div>
+        <h1>
+          To My <span class="name">Beautiful Girl</span>
+        </h1>
+        <div class="subtitle">A little birthday wish from your forever</div>
+        <p class="message">
+          On this special day, I just want you to know how deeply you are loved.
+          <strong>You make my world softer, brighter, and more beautiful</strong>
+          every single day.
+        </p>
+        <div class="heart-line" aria-hidden="true">
+          <span>♥</span>
+          <span>♥</span>
+          <span>♥</span>
+        </div>
+        <p class="message">
+          May this birthday bring you endless smiles, sweet memories, and all the love you deserve.
+          <strong>You are my home, my heartbeat, and my favorite person.</strong>
+        </p>
+        <div class="footer-note">With all my love</div>
+      </section>
+
+      <section class="extra-section" aria-label="More birthday message">
+        <h2>For my favorite person</h2>
+        <p class="mini-message">
+          Every day with you feels like a dream, and today I hope you feel how special you are.
+          <strong>Thank you for being the sweetest part of my life.</strong>
+        </p>
+        <p class="mini-message">
+          I will always choose you, celebrate you, and love you with all my heart.
+          <strong>Happy birthday, my love.</strong>
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const body = document.body;
+      const heartCount = 28;
+
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'heart';
+        heart.textContent = i % 2 === 0 ? '♥' : '❣';
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.fontSize = `${1.2 + Math.random() * 1.4}rem`;
+        heart.style.animationDuration = `${6 + Math.random() * 6}s`;
+        heart.style.animationDelay = `${-Math.random() * 5}s`;
+        heart.style.opacity = `${0.25 + Math.random() * 0.45}`;
+        body.appendChild(heart);
+      }
+    </script>
+  </body>
+</html>
